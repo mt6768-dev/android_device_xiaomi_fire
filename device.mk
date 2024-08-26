@@ -51,29 +51,25 @@ PRODUCT_PACKAGES += \
 
 # Audio
 PRODUCT_PACKAGES += \
-    android.hardware.audio@7.0-impl \
-    android.hardware.audio.effect@7.0-impl \
+    android.hardware.audio@7.0-impl:32 \
+    android.hardware.audio.effect@7.0-impl:32 \
     android.hardware.audio.service
 
 PRODUCT_PACKAGES += \
-    audio.bluetooth.default \
-    android.hardware.bluetooth.audio-impl
+    audio.bluetooth.default:32 \
+    android.hardware.bluetooth.audio-impl:32
 
 PRODUCT_PACKAGES += \
     MtkInCallService
 
 PRODUCT_PACKAGES += \
-    MtkInCallService
-
-PRODUCT_PACKAGES += \
-    libaudiofoundation.vendor \
-    libbluetooth_audio_session \
-    libunwindstack.vendor \
-    libalsautils \
-    libnbaio_mono \
-    libtinycompress \
-    libdynproc \
-    libhapticgenerator
+    libaudiofoundation.vendor:32 \
+    libbluetooth_audio_session:32 \
+    libalsautils:32 \
+    libnbaio_mono:32 \
+    libtinycompress:32 \
+    libdynproc:32 \
+    libhapticgenerator:32
 
 PRODUCT_COPY_FILES += \
     $(call find-copy-subdir-files,*,$(LOCAL_PATH)/configs/audio/,$(TARGET_COPY_OUT_VENDOR)/etc)
@@ -202,6 +198,10 @@ PRODUCT_PACKAGES += \
     libsoft_attestation_cert.vendor \
     android.hardware.keymaster@4.1.vendor \
     android.hardware.hardware_keystore.km41.xml
+
+# Ladder
+PRODUCT_PACKAGES += \
+    libunwindstack.vendor
 
 # Light
 PRODUCT_PACKAGES += \
