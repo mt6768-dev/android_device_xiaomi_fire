@@ -690,7 +690,7 @@ system_ext/lib64/libvcodec_capenc.so
 system_ext/lib64/libvt_avsync.so
 system_ext/lib64/vendor.mediatek.hardware.videotelephony-V1-ndk.so
 system_ext/lib64/vendor.mediatek.hardware.videotelephony@1.0.so
-system_ext/priv-app/ImsService/ImsService.apk|e88de927bd1c81f7aea42535f4eccbdf092cce1b
+system_ext/priv-app/ImsService/ImsService.apk
 
 # Keymaster
 vendor/bin/bp_kmsetkey_ca
