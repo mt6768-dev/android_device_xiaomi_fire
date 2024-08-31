@@ -96,6 +96,7 @@ PRODUCT_PACKAGES += \
     android.frameworks.cameraservice.service-V1-ndk.vendor \
     libcamera_metadata.vendor \
     libexif.vendor \
+    libmemunreachable.vendor \
     libpng.vendor
 
 # Cgroup
