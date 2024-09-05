@@ -1,0 +1,20 @@
+# Allow access to the HALs
+hal_client_domain(hal_sensors_default, hal_graphics_allocator);
+
+# Allow hal_sensors_default to find fwk_camera_service
+allow hal_sensors_default fwk_camera_service:service_manager find;
+
+# Allow hal_sensors_default to find hal_graphics_mapper_hwservice
+allow hal_sensors_default hal_graphics_mapper_hwservice:hwservice_manager find;
+
+# Allow hal_sensors_default to find hidl_token_hwservice
+allow hal_sensors_default hidl_token_hwservice:hwservice_manager find;
+
+# Allow sensors HAL to access ged
+allow hal_sensors_default proc_ged:file r_file_perms;
+
+# Allow binder communication with cameraserver
+binder_call(hal_sensors_default, cameraserver)
+
+get_prop(hal_sensors_default, camera_config_prop)
+get_prop(hal_sensors_default, vendor_camera_prop)

@@ -1,1 +1,1 @@
-binder_call(servicemanager, mtk_hal_sensors)
+binder_call(servicemanager, hal_sensors_default)
