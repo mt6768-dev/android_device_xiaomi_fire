@@ -13,6 +13,12 @@ from extract_utils.main import (
     ExtractUtilsModule,
 )
 
+namespace_imports = [
+    'hardware/mediatek',
+    'hardware/xiaomi',
+    'vendor/xiaomi/earth'
+]
+
 blob_fixups: blob_fixups_user_type = {
     'system_ext/lib64/libsink.so': blob_fixup()
         .add_needed('libshim_sink.so'),
@@ -41,6 +47,7 @@ module = ExtractUtilsModule(
     'earth',
     'xiaomi',
     blob_fixups=blob_fixups,
+    namespace_imports=namespace_imports,
     add_firmware_proprietary_file=True,
 )
 
