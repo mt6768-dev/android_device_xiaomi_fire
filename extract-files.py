@@ -8,6 +8,10 @@ from extract_utils.fixups_blob import (
     blob_fixup,
     blob_fixups_user_type,
 )
+from extract_utils.fixups_lib import (
+    lib_fixups,
+    lib_fixups_user_type,
+)
 from extract_utils.main import (
     ExtractUtils,
     ExtractUtilsModule,
@@ -18,6 +22,16 @@ namespace_imports = [
     'hardware/xiaomi',
     'vendor/xiaomi/earth'
 ]
+
+
+def lib_fixup_vendor_suffix(lib: str, partition: str, *args, **kwargs):
+    return f'{lib}_{partition}' if partition == 'vendor' else None
+
+
+lib_fixups: lib_fixups_user_type = {
+    **lib_fixups,
+    ('vendor.mediatek.hardware.videotelephony@1.0',): lib_fixup_vendor_suffix,
+}
 
 blob_fixups: blob_fixups_user_type = {
     'system_ext/lib64/libsink.so': blob_fixup()
@@ -48,6 +62,7 @@ module = ExtractUtilsModule(
     'earth',
     'xiaomi',
     blob_fixups=blob_fixups,
+    lib_fixups=lib_fixups,
     namespace_imports=namespace_imports,
     add_firmware_proprietary_file=True,
 )
