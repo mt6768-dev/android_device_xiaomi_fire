@@ -722,14 +722,14 @@ vendor/lib64/librpc.so
 vendor/lib64/libviagpsrpc.so
 
 # IMS
-system_ext/framework/mediatek-common.jar:framework/mediatek-common.jar
-system_ext/framework/mediatek-framework.jar:framework/mediatek-framework.jar
-system_ext/framework/mediatek-ims-base.jar:framework/mediatek-ims-base.jar
-system_ext/framework/mediatek-ims-common.jar:framework/mediatek-ims-common.jar
-system_ext/framework/mediatek-ims-extension-plugin.jar:framework/mediatek-ims-extension-plugin.jar
-system_ext/framework/mediatek-telecom-common.jar:framework/mediatek-telecom-common.jar
-system_ext/framework/mediatek-telephony-base.jar:framework/mediatek-telephony-base.jar
-system_ext/framework/mediatek-telephony-common.jar:framework/mediatek-telephony-common.jar
+system_ext/framework/mediatek-common.jar:system/framework/mediatek-common.jar
+system_ext/framework/mediatek-framework.jar:system/framework/mediatek-framework.jar
+system_ext/framework/mediatek-ims-base.jar:system/framework/mediatek-ims-base.jar
+system_ext/framework/mediatek-ims-common.jar:system/framework/mediatek-ims-common.jar
+system_ext/framework/mediatek-ims-extension-plugin.jar:system/framework/mediatek-ims-extension-plugin.jar
+system_ext/framework/mediatek-telecom-common.jar:system/framework/mediatek-telecom-common.jar
+system_ext/framework/mediatek-telephony-base.jar:system/framework/mediatek-telephony-base.jar
+system_ext/framework/mediatek-telephony-common.jar:system/framework/mediatek-telephony-common.jar
 system_ext/priv-app/ImsService/ImsService.apk:priv-app/ImsService/ImsService.apk|e88de927bd1c81f7aea42535f4eccbdf092cce1b
 system_ext/bin/vtservice
 system_ext/etc/init/init.vtservice.rc
