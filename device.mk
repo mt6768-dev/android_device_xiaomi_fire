@@ -291,6 +291,9 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/handheld_core_hardware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/handheld_core_hardware.xml
 
 # Power
+TARGET_TAP_TO_WAKE_NODE := /sys/touchpanel/double_tap
+$(call soong_config_set,mediatek_power,double_tap_to_wake_node,$(TARGET_TAP_TO_WAKE_NODE))
+
 PRODUCT_PACKAGES += \
     android.hardware.power-service-mediatek \
     android.hardware.power@1.3.vendor
