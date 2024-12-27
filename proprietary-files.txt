@@ -34,7 +34,9 @@ vendor/lib/librt_extamp_intf.so
 vendor/lib/libsixth.so
 vendor/lib/libspeech_enh_lib.so;FIX_SONAME
 vendor/lib/libspeechparser_vendor.so
+vendor/lib/vendor.mediatek.hardware.audio@6.1.so
 vendor/lib/vendor.mediatek.hardware.audio@7.1.so
+vendor/lib64/vendor.mediatek.hardware.audio@6.1.so
 
 # Audio Configs
 vendor/etc/audio_param/AudioParamOptions.xml
@@ -802,6 +804,7 @@ vendor/lib64/libmtcloader.so
 # Trusted Execution Environment (TEE)
 vendor/bin/teei_daemon
 vendor/etc/init/microtrust.rc
+vendor/lib/libthha.so;DISABLE_CHECKELF
 vendor/lib64/libTEECommon.so
 vendor/lib64/libimsg_log.so
 vendor/lib64/libteei_daemon_vfs.so
@@ -904,6 +907,7 @@ vendor/bin/hw/android.hardware.media.c2@1.2-mediatek
 vendor/bin/hw/android.hardware.media.c2@1.2-mediatek-64b
 vendor/etc/init/android.hardware.media.c2@1.2-mediatek.rc
 vendor/etc/vintf/manifest/manifest_media_c2_V1_1_default.xml
+vendor/lib/libadpcmdec_mtk.so
 vendor/lib/libcodec2_mtk_c2store.so
 vendor/lib/libcodec2_mtk_vdec.so
 vendor/lib/libcodec2_mtk_venc.so
@@ -915,6 +919,8 @@ vendor/lib/libcodec2_soft_mtk_msadpcmdec.so
 vendor/lib/libcodec2_vpp_qt_plugin.so
 vendor/lib/libcodec2_vpp_rs_plugin.so
 vendor/lib/libformatter.so
+vendor/lib/libmp3dec_mtk.so
+vendor/lib64/libadpcmdec_mtk.so
 vendor/lib64/libcodec2_mtk_c2store.so
 vendor/lib64/libcodec2_mtk_vdec.so
 vendor/lib64/libcodec2_mtk_venc.so
@@ -926,6 +932,7 @@ vendor/lib64/libcodec2_soft_mtk_msadpcmdec.so
 vendor/lib64/libcodec2_vpp_qt_plugin.so
 vendor/lib64/libcodec2_vpp_rs_plugin.so
 vendor/lib64/libformatter.so
+vendor/lib64/libmp3dec_mtk.so
 
 # MMS
 vendor/bin/hw/vendor.mediatek.hardware.mms@1.6-service
