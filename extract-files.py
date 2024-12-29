@@ -58,6 +58,10 @@ blob_fixups: blob_fixups_user_type = {
         .replace_needed('libutils.so', 'libutils-v32.so'),
     'vendor/lib64/sensors.camera.light.so': blob_fixup()
         .replace_needed('libcamera2ndk_vendor.so', 'libcamera2ndk_vendor-v35.so'),
+    ('vendor/lib64/libteei_daemon_vfs.so', 'vendor/lib64/lib3a.flash.so', 'vendor/lib64/libSQLiteModule_VER_ALL.so'): blob_fixup()
+        .add_needed('liblog.so'),
+    'vendor/lib64/libmnl.so' : blob_fixup()
+        .add_needed('libcutils.so')
 }  # fmt: skip
 
 module = ExtractUtilsModule(
