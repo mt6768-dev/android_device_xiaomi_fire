@@ -179,5 +179,5 @@ service vendor.nfc_hal_service /vendor/bin/hw/android.hardware.nfc@1.2-service
     disabled
     override
 
-on property:ro.boot.product.hardware.sku=aether
+on property:ro.boot.product.hardware.sku=heat
     start vendor.nfc_hal_service

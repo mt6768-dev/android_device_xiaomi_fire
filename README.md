@@ -1,4 +1,4 @@
-# Android Device tree for the Redmi 12C
+# Android Device tree for the Redmi 12
 
 ```
 #

@@ -1,2 +1,0 @@
-type fpsensor_fp_device, dev_type;
-type silead_fpd_device, dev_type;

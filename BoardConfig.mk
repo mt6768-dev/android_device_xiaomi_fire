@@ -4,7 +4,7 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
-DEVICE_PATH := device/xiaomi/earth
+DEVICE_PATH := device/xiaomi/fire
 
 BUILD_BROKEN_DUP_RULES := true
 
@@ -51,7 +51,7 @@ TARGET_DYNAMIC_64_32_MEDIASERVER := true
 TARGET_DYNAMIC_64_32_DRMSERVER := true
 
 # Bootloader
-TARGET_BOOTLOADER_BOARD_NAME := earth
+TARGET_BOOTLOADER_BOARD_NAME := fire
 TARGET_NO_BOOTLOADER := true
 
 # Boot Image
@@ -88,23 +88,19 @@ DEVICE_MANIFEST_FILE += $(DEVICE_PATH)/manifest.xml
 DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE := \
     $(DEVICE_PATH)/framework_compatibility_matrix.xml
 
-# Init
-TARGET_INIT_VENDOR_LIB := //$(DEVICE_PATH):init_xiaomi_earth
-TARGET_RECOVERY_DEVICE_MODULES := init_xiaomi_earth
-
 # Kernel
 TARGET_KERNEL_ARCH := arm64
 TARGET_KERNEL_HEADER_ARCH := arm64
-TARGET_KERNEL_SOURCE := kernel/xiaomi/earth
-TARGET_KERNEL_CONFIG := earth_defconfig
+TARGET_KERNEL_SOURCE := kernel/xiaomi/fire
+TARGET_KERNEL_CONFIG := fire_defconfig
 TARGET_KERNEL_NO_GCC := true
 BOARD_KERNEL_IMAGE_NAME := Image.gz
 
 # NFC
 ODM_MANIFEST_SKUS += \
-    aether
+    hcesim
 
-ODM_MANIFEST_AETHER_FILES := $(DEVICE_PATH)/manifest_aether.xml
+ODM_MANIFEST_HCESIM_FILES := $(DEVICE_PATH)/manifest_hcesim.xml
 
 # Partitions
 BOARD_FLASH_BLOCK_SIZE := 131072                  	# 2048     * 64   (pagesize)
@@ -192,4 +188,4 @@ WIFI_HIDL_UNIFIED_SUPPLICANT_SERVICE_RC_ENTRY := true
 WIFI_HIDL_FEATURE_DUAL_INTERFACE := true
 
 # Inherit the proprietary files
-include vendor/xiaomi/earth/BoardConfigVendor.mk
+include vendor/xiaomi/fire/BoardConfigVendor.mk

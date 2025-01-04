@@ -12,7 +12,7 @@
     "target_path": "hardware/xiaomi"
   },
   {
-    "repository": "android_kernel_xiaomi_earth",
-    "target_path": "kernel/xiaomi/earth"
+    "repository": "android_kernel_xiaomi_fire",
+    "target_path": "kernel/xiaomi/fire"
   }
 ]

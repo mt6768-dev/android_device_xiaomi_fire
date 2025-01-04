@@ -21,7 +21,7 @@ from extract_utils.main import (
 namespace_imports = [
     'hardware/mediatek',
     'hardware/xiaomi',
-    'vendor/xiaomi/earth'
+    'vendor/xiaomi/fire'
 ]
 
 
@@ -67,7 +67,7 @@ blob_fixups: blob_fixups_user_type = {
 }  # fmt: skip
 
 module = ExtractUtilsModule(
-    'earth',
+    'fire',
     'xiaomi',
     blob_fixups=blob_fixups,
     lib_fixups=lib_fixups,

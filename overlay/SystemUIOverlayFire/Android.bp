@@ -5,8 +5,8 @@
 //
 
 runtime_resource_overlay {
-    name: "CarrierConfigOverlayEarth",
+    name: "SystemUIOverlayFire",
     sdk_version: "current",
-    product_specific: true,
-    aaptflags: ["--keep-raw-values"]
+    resource_dirs: ["res"],
+    vendor: true,
 }

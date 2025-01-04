@@ -5,7 +5,7 @@
 //
 
 runtime_resource_overlay {
-    name: "FrameworksResOverlayEarth",
+    name: "WifiResOverlayFire",
     sdk_version: "current",
     resource_dirs: ["res"],
     vendor: true,

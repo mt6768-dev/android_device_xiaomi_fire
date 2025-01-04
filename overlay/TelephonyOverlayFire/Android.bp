@@ -5,7 +5,7 @@
 //
 
 runtime_resource_overlay {
-    name: "WifiResOverlayEarth",
+    name: "TelephonyOverlayFire",
     sdk_version: "current",
     resource_dirs: ["res"],
     vendor: true,
