@@ -1,4 +1,4 @@
-# Firmware - from fire-user 14 UP1A.231005.007 V816.0.2.0.UCVMIXM release-keys
+# Firmware - from fire-user 14 UP1A.231005.007 V816.0.8.0.UMXMIXM release-keys
 gz.img;AB
 lk.img;AB
 logo.bin:logo.img;AB
