@@ -44,6 +44,39 @@
         <path name="speaker_output" value="turnoff">
             <kctl name="LOL Mux" value="Open" />
         </path>
+       <!--awinic control-->
+        <path name="awinic_speaker_mode_music" value="setting">
+            <kctl name="aw87xxx_profile_switch_0" value="Off" />
+            <kctl name="aw87xxx_profile_switch_0" value="Music" />
+        </path>
+        <path name="awinic_speaker_mode_voice" value="setting">
+            <kctl name="aw87xxx_profile_switch_0" value="Off" />
+            <kctl name="aw87xxx_profile_switch_0" value="Voice" />
+        </path>
+        <path name="awinic_speaker_mode_voip" value="setting">
+            <kctl name="aw87xxx_profile_switch_0" value="Off" />
+            <kctl name="aw87xxx_profile_switch_0" value="Voip" />
+        </path>
+        <path name="awinic_speaker_mode_off" value="setting">
+            <kctl name="aw87xxx_profile_switch_0" value="Off" />
+        </path>
+       <!--sia control-->
+        <path name="sia_speaker_mode_music" value="setting">
+            <kctl name="SpkrLeft Sipa Audio Scene" value="Playback" />
+            <kctl name="SpkrLeft Sipa Power" value="On" />
+        </path>
+        <path name="sia_speaker_mode_voice" value="setting">
+            <kctl name="SpkrLeft Sipa Audio Scene" value="Voice" />
+            <kctl name="SpkrLeft Sipa Power" value="On" />
+        </path>
+        <path name="sia_speaker_mode_voip" value="setting">
+            <kctl name="SpkrLeft Sipa Audio Scene" value="Voice" />
+            <kctl name="SpkrLeft Sipa Power" value="On" />
+        </path>
+        <path name="sia_speaker_mode_off" value="setting">
+            <kctl name="SpkrLeft Sipa Power" value="Off" />
+            <kctl name="SpkrLeft Sipa Audio Scene" value="Playback" />
+        </path>
         <!--headhpone_speaker output-->
         <path name="headphoneSpeaker_output" value="turnon">
             <kctl name="DAC In Mux" value="Normal Path" />
@@ -57,11 +90,9 @@
         <!--external_speaker output-->
         <path name="ext_speaker_output" value="turnon">
             <kctl name="Ext_Speaker_Amp Switch" value="1" />
-            <kctl name="FSM_AMP_SWITCH" value="On" />
         </path>
         <path name="ext_speaker_output" value="turnoff">
             <kctl name="Ext_Speaker_Amp Switch" value="0" />
-             <kctl name="FSM_AMP_SWITCH" value="Off" />
         </path>
         <!--mic setting-->
         <path name="builtin_Mic_Mic1" value="turnon">

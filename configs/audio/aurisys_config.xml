@@ -10,12 +10,14 @@
         <aurisys_scenario aurisys_scenario="AURISYS_SCENARIO_PLAYBACK_NORMAL">
             <downlink_library_name_list digital_gain_lib_name="">
                 <library name="mtk_bessound"/>
+                <library name="smartpa_aw88xxx"/>
             </downlink_library_name_list>
         </aurisys_scenario>
         <!-- for aurisys_scene playback fast -->
         <aurisys_scenario aurisys_scenario="AURISYS_SCENARIO_PLAYBACK_LOW_LATENCY">
             <downlink_library_name_list digital_gain_lib_name="">
                 <library name="mtk_bessound"/>
+                <library name="smartpa_aw88xxx"/>
             </downlink_library_name_list>
         </aurisys_scenario>
         <!-- for aurisys_scene low latency record -->
@@ -49,6 +51,7 @@
             </uplink_library_name_list>
             <downlink_library_name_list digital_gain_lib_name="mtk_speech_enh">
                 <library name="mtk_speech_enh"/>
+                <library name="smartpa_aw88xxx"/>
             </downlink_library_name_list>
         </aurisys_scenario>
         <!-- for aurisys_scene voip w/o AEC -->
@@ -64,9 +67,6 @@
         <aurisys_scenario aurisys_scenario="AURISYS_SCENARIO_PLAYBACK_SMARTPA">
             <downlink_library_name_list digital_gain_lib_name="">
                 <library name="aurisys_demo"/>
-                <!--C3T code for HQ-231682 by zhangbing at 2022.08.12 start-->
-                <library name="sia81xx_sixth"/>
-                <!--C3T code for HQ-231682 by zhangbing at 2022.08.12 end-->
             </downlink_library_name_list>
         </aurisys_scenario>
         <!-- for aurisys_scene HDR record -->
@@ -366,38 +366,70 @@
             </components>
         </library>
         <!--
-                 C3T code for HQ-231682 by zhangbing at 2022.08.12 start
          * =====================================================================
-         *   sia81xx sixth Library
+         *   Awinic SKTune Library
          * =====================================================================
         -->
-        <library name="sia81xx_sixth"
-                 lib_path="/vendor/lib/libsixth.so"
-                 lib64_path="/vendor/lib64/libsixth.so"
-                 param_path="/vendor/etc/aurisys_param/sixth_param.txt"
+        <library name="smartpa_aw88xxx"
+                 lib_path="/vendor/lib/libawinic_mtk_aurisys.so"
+                 lib64_path="/vendor/lib64/libawinic_mtk_aurisys.so"
+                 param_path="/vendor/etc/smartpa_param"
                  lib_dump_path="AUTO"
-                 adb_cmd_key="SIXTH">
+                 adb_cmd_key="AWINIC">
             <components>
-                <!-- for aurisys_scene playback smart pa -->
-                <component aurisys_scenario="AURISYS_SCENARIO_PLAYBACK_SMARTPA"
-                           sample_rate="8000,11025,12000,16000,22050,24000,32000,44100,48000"
+                <!-- for aurisys_scene PLAYBACK_NORMAL -->
+                <component aurisys_scenario="AURISYS_SCENARIO_PLAYBACK_NORMAL"
+                           sample_rate="48000"
                            audio_format="AUDIO_FORMAT_PCM_32_BIT"
                            frame_size_ms="0"
-                           b_interleave="0"
+                           b_interleave="1"
                            enable_log="0"
                            enable_raw_dump="0"
                            enable_lib_dump="0"
                            enhancement_mode="0">
                     <downlink_process>
                         <buf_in  data_buf_type="DATA_BUF_DOWNLINK_IN"
-                                 num_channels="1"/>
+                                 num_channels="2"/>
                         <buf_out data_buf_type="DATA_BUF_DOWNLINK_OUT"
-                                 num_channels="1"/>
+                                 num_channels="2"/>
+                    </downlink_process>
+                </component>
+                <!-- for aurisys_scene LOW_LATENCY -->
+                <component aurisys_scenario="AURISYS_SCENARIO_PLAYBACK_LOW_LATENCY"
+                           sample_rate="48000"
+                           audio_format="AUDIO_FORMAT_PCM_32_BIT"
+                           frame_size_ms="0"
+                           b_interleave="1"
+                           enable_log="0"
+                           enable_raw_dump="0"
+                           enable_lib_dump="0"
+                           enhancement_mode="0">
+                    <downlink_process>
+                        <buf_in  data_buf_type="DATA_BUF_DOWNLINK_IN"
+                                 num_channels="2"/>
+                        <buf_out data_buf_type="DATA_BUF_DOWNLINK_OUT"
+                                 num_channels="2"/>
+                    </downlink_process>
+                </component>
+                <!-- for aurisys_scene VOIP -->
+                <component aurisys_scenario="AURISYS_SCENARIO_VOIP"
+                           sample_rate="48000"
+                           audio_format="AUDIO_FORMAT_PCM_16_BIT"
+                           frame_size_ms="0"
+                           b_interleave="1"
+                           enable_log="0"
+                           enable_raw_dump="0"
+                           enable_lib_dump="0"
+                           enhancement_mode="0">
+                    <downlink_process>
+                        <buf_in  data_buf_type="DATA_BUF_DOWNLINK_IN"
+                                 num_channels="2"/>
+                        <buf_out data_buf_type="DATA_BUF_DOWNLINK_OUT"
+                                 num_channels="2"/>
                     </downlink_process>
                 </component>
             </components>
         </library>
-        <!--C3T code for HQ-231682 by zhangbing at 2022.08.12 end-->
         <!--
          * =====================================================================
          *   DEMO
