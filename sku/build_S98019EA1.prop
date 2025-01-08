@@ -1,0 +1,10 @@
+
+ro.product.vendor.brand=Redmi
+ro.product.vendor.name=fire_global
+ro.product.vendor.device=fire
+ro.vendor.build.fingerprint=Redmi/fire_global/fire:14/UP1A.231005.007/V816.0.8.0.UMXMIXM:user/release-keys
+ro.product.vendor.marketname=Redmi 12
+ro.product.vendor.model=23053RN02L
+ro.product.board=fire
+ro.bootimage.build.fingerprint=Redmi/fire_global/fire:14/UP1A.231005.007/V816.0.8.0.UMXMIXM:user/release-keys
+

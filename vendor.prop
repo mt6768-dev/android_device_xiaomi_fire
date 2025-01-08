@@ -221,3 +221,5 @@ ro.vendor.wifi.sap.concurrent.iface=ap1
 ro.vendor.wifi.sap.interface=ap0
 ro.vendor.wlan.chrdev=wmt_chrdev_wifi
 ro.vendor.wlan.gen=gen4m
+
+import /vendor/build_${ro.boot.board_id}.prop
