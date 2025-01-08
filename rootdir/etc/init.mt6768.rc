@@ -34,13 +34,15 @@ on init
     # setprop ro.vold.primary_physical 1
 
     mkdir /mnt/cd-rom 0000 system system
-
-    # add this link for cust mount
-    symlink /dev/block/platform/bootdevice /dev/block/bootdevice
+    symlink /dev/block /dev/block/bootdevice
+    mkdir /mnt/rescue 0755 root root
 
 # change lk_env permission
     chown root system /proc/lk_env
     chmod 0660 /proc/lk_env
+
+# write tcp_mtu_probing
+    write /proc/sys/net/ipv4/tcp_mtu_probing 1
 
 # increase sysctl_rmem_max and sysctl_wmem_max values to 2M
     write /proc/sys/net/core/wmem_max 8388608
@@ -50,7 +52,7 @@ on init
     write /dev/cpuset/foreground/cpus 0-7
     write /dev/cpuset/foreground/boost/cpus 0-7
     write /dev/cpuset/background/cpus 0-3
-    write /dev/cpuset/system-background/cpus 0-3
+    write /dev/cpuset/system-background/cpus 0-5
     write /dev/cpuset/top-app/cpus 0-7
 
 on late-init
@@ -101,15 +103,6 @@ on property:sys.boot_completed=1
 on early-fs
     write /proc/bootprof "INIT:early-fs"
 
-# charger node
-    chmod 0666 /sys/class/power_supply/battery/charging_enabled
-    chown system system /sys/class/power_supply/battery/charging_enabled
-
-#C3T-T code for HQ-272420 by tanrong at 20230109 start
-    chmod 0666 /sys/class/power_supply/battery/input_suspend
-    chown system system /sys/class/power_supply/battery/input_suspend
-#C3T-T code for HQ-272420 by tanrong at 20230109 end
-
     # Turn backlight on and switch to backlight trigger
     write /sys/class/leds/lcd-backlight/brightness "1000"
     write /sys/class/leds/lcd-backlight/trigger "backlight"
@@ -125,6 +118,9 @@ on fs
     write /sys/kernel/tracing/trace_marker "E"
     write /proc/bootprof "INIT:Mount_END"
 
+    # mount rescue
+    mount ext4 /dev/block/bootdevice/by-name/rescue /mnt/rescue noatime
+
     write /sys/block/zram0/comp_algorithm lz4
     write /proc/sys/vm/page-cluster 0
     write /proc/sys/vm/swappiness 100
@@ -132,10 +128,6 @@ on fs
     swapon_all /vendor/etc/fstab.mt6768
 
     mount iso9660 loop@/vendor/etc/iAmCdRom.iso /mnt/cd-rom ro
-    # C3T code for HQ-219107 by gaoshilin at 20220722 start
-    mount ext4 /dev/block/by-name/rescue /mnt/rescue noatime
-    restorecon_recursive /mnt/rescue
-    # C3T code for HQ-219107 by gaoshilin at 20220722 end
 
 on post-fs
     write /proc/bootprof "INIT:post-fs"
@@ -192,16 +184,6 @@ on late-fs
     write /proc/bootprof "INIT:Mount_END --late"
 
 on post-fs-data
-    mkdir /data/vendor 0777 nfc nfc
-    mkdir /data/vendor/nfc 0777 nfc nfc
-    mkdir /data/vendor/nfc/param 0777 nfc nfc
-    chmod 0777 /dev/nq-nci
-    chown nfc nfc /dev/nq-nci
-
-    mkdir /data/vendor/silead 0770 system system
-#C3T code for HQ-224157 by zhoumengxuan at 22.7.30 start
-    mkdir /data/vendor/fpc 0777 system system
-#C3T code for HQ-224157 by zhoumengxuan at 22.7.30 end
     write /proc/bootprof "INIT:post-fs-data"
 
     # boot time fs tune
@@ -265,6 +247,12 @@ on post-fs-data
     mkdir /data/vendor/flicker
     chown root system /data/vendor/flicker
     chmod 0771 /data/vendor/flicker
+
+    #+ExtB HONGMI-167704,zhusizhe.wt,Add,20230116,Create mac_addr mount point
+    mkdir /data/vendor/mac_addr
+    chown root system /data/vendor/mac_addr
+    chmod 0744 /data/vendor/mac_addr
+    #-ExtB HONGMI-167704,zhusizhe.wt,Add,20230116,Create mac_addr mount point
 
     # Create Audio HAL data directory
     mkdir /data/vendor/audiohal 0771 system audio
@@ -682,15 +670,11 @@ on post-fs-data
 
     # power manager
     write /sys/power/pm_async 0
-
+    chmod 0666 sys/class/thermal/thermal_message/flash_state
     #RTC
     chmod 660 /dev/alarm
     chown root system /dev/alarm
-#C3T HQ-219066 add charge looger function by zhaohan at 2022/09/08 start
-    mkdir /data/vendor/charge_logger 0771 system system
-    chmod 0664 /data/vendor/charge_logger/charge_logger_a.csv
-    chown system system /data/vendor/charge_logger/charge_logger_a.csv
-#C3T HQ-219066 add charge looger function by zhaohan at 2022/09/08 end
+
 # End of adding by MTK drivers
 # -----------------------
 
@@ -709,12 +693,20 @@ on boot
 
     chmod 0664 /sys/class/leds/lcd-backlight/brightness
     chown system system /sys/class/leds/lcd-backlight/brightness
+    chmod 0664 /sys/class/leds/lcd-backlight/brightness_clone
+    chown system system /sys/class/leds/lcd-backlight/brightness_clone
     chmod 0664 /sys/class/leds/red/brightness
     chown system system /sys/class/leds/red/brightness
     chmod 0664 /sys/class/leds/green/brightness
     chown system system /sys/class/leds/green/brightness
     chmod 0664 /sys/class/leds/blue/brightness
     chown system system /sys/class/leds/blue/brightness
+
+    chmod 0664 /sys/class/graphics/fb0/cabc
+    chown system system /sys/class/graphics/fb0/cabc
+
+    chmod 0664 /sys/class/graphics/fb0/hbm
+    chown system system /sys/class/graphics/fb0/hbm
 
     chown system system /sys/devices/system/cpu/cpufreq/hotplug/cpu_num_base
     chmod 0660 /sys/devices/system/cpu/cpufreq/hotplug/cpu_num_base
@@ -748,36 +740,6 @@ on boot
     chmod 0770 /sys/power/tuxonice
     chmod 0220 /sys/power/tuxonice/do_hibernate
 
-    #C3T code for HQ-229328 by hongwei at 2022/10/24 start
-    chown system system /sys/class/huaqin/interface/hw_info/lcm
-    chmod 0666 /sys/class/huaqin/interface/hw_info/lcm
-    chown system system /proc/nvt_pocket_palm_switch
-    chmod 0666 /proc/nvt_pocket_palm_switch
-    chown system system /proc/nvt_edge_reject_switch
-    chmod 0666 /proc/nvt_edge_reject_switch
-    chown system /sys/devices/platform/1100a000.spi0/spi_master/spi0/spi0.0/fts_rw_reg
-    chmod 0666 /sys/devices/platform/1100a000.spi0/spi_master/spi0/spi0.0/fts_rw_reg
-    chown system /sys/devices/platform/1100a000.spi0/spi_master/spi0/spi0.0/fts_edge_mode
-    chmod 0666 /sys/devices/platform/1100a000.spi0/spi_master/spi0/spi0.0/fts_edge_mode
-    chown system /sys/devices/platform/1100a000.spi0/spi_master/spi0/spi0.0/fts_earphone_mode
-    chmod 0666 /sys/devices/platform/1100a000.spi0/spi_master/spi0/spi0.0/fts_earphone_mode
-    chown system /sys/devices/platform/1100a000.spi0/spi_master/spi0/spi0.0/fts_charger_mode
-    chmod 0666 /sys/devices/platform/1100a000.spi0/spi_master/spi0/spi0.0/fts_charger_mode
-    chown system /sys/devices/platform/1100a000.spi0/spi_master/spi0/spi0.0/misc/edge_restain
-    chmod 0666 /sys/devices/platform/1100a000.spi0/spi_master/spi0/spi0.0/misc/edge_restain
-    chown system /sys/devices/platform/1100a000.spi0/spi_master/spi0/spi0.0/misc/pocket_palm_mode
-    chmod 0666 /sys/devices/platform/1100a000.spi0/spi_master/spi0/spi0.0/misc/pocket_palm_mode
-    chown system /sys/devices/platform/1100a000.spi0/spi_master/spi0/spi0.0/misc/charger_state
-    chmod 0666 /sys/devices/platform/1100a000.spi0/spi_master/spi0/spi0.0/misc/charger_state
-    chown system /sys/devices/platform/1100a000.spi0/spi_master/spi0/spi0.0/misc/earjack_state
-    chmod 0666 /sys/devices/platform/1100a000.spi0/spi_master/spi0/spi0.0/misc/earjack_state
-    #C3T code for HQ-229328 by hongwei at 2022/10/24 end
-
-    # C3T code for HQ-223847 by xiaqiangdan at 20220301 start
-    #tp ito
-    chown system system /proc/tp_selftest
-    chmod 0664 /proc/tp_selftest
-    # C3T code for HQ-223847 by xiaqiangdan at 20220301 end
 
 # Smartbook Handler Framework
     chown system system /sys/power/sb_state
@@ -923,11 +885,7 @@ on boot
     chown system system /sys/touchpanel/double_tap
     chmod 0660 /sys/touchpanel/double_tap
 
-# C3T code for HQ-223913 by liwen at 2022.08.01 start
-on property:sys.boot_completed=1
-    start mi_thermald
     chown system system /sys/class/thermal/thermal_message/sconfig
-# C3T code for HQ-223913 by liwen at 2022.08.01 end
 
 on property:vold.decrypt=trigger_reset_main
     write /proc/bootprof "INIT:vold.decrypt=trigger_reset_main"
@@ -952,23 +910,6 @@ on property:vold.decrypt=trigger_shutdown_framework
     setprop sys.boot_completed 0
     setprop dev.bootcomplete 0
 
-#C3T for HQ-218934 add by wanghaojie at 2022.9.2 start
-#WiFi
-on property:vendor.sysctl.tx=3
-# C3T-T code for HQ-273379 by bianminghui at 2023.2.2 start
-    exec - root -- /vendor/bin/iwpriv wlan0 driver "SET_PWR_CTRL MySar 3"
-#WiFi
-on property:vendor.sysctl.tx=2
-    exec - root -- /vendor/bin/iwpriv wlan0 driver "SET_PWR_CTRL MySar 2"
-#WiFi
-on property:vendor.sysctl.tx=1
-    exec - root -- /vendor/bin/iwpriv wlan0 driver "SET_PWR_CTRL MySar 1"
-#WiFi
-on property:vendor.sysctl.tx=0
-    exec - root -- /vendor/bin/iwpriv wlan0 driver "SET_PWR_CTRL MySar 0"
-# C3T-T code for HQ-273379 by bianminghui at 2023.2.2 end
-#C3T for HQ-218934 add by wanghaojie at 2022.9.2 end
-
 # bugreport is triggered by holding down volume down, volume up and power
 service bugreport /system/bin/dumpstate -d -p -B -z \
         -o /data/user_de/0/com.android.shell/files/bugreports/bugreport
@@ -979,9 +920,10 @@ service bugreport /system/bin/dumpstate -d -p -B -z \
 
 # end boot time fs tune
 on property:sys.boot_completed=1
+    write /sys/block/mmcblk0/queue/scheduler "bfq"
     write /sys/block/mmcblk0/queue/iostats 1
     write /sys/block/mmcblk0/queue/read_ahead_kb 128
-    write /sys/block/mmcblk0/queue/nr_requests 128
+    write /sys/block/mmcblk0/queue/nr_requests 32
     write /sys/block/sdc/queue/iostats 1
     write /sys/block/sdc/queue/read_ahead_kb 128
     write /sys/block/sdc/queue/nr_requests 128
@@ -1003,7 +945,6 @@ on property:sys.boot_completed=1
     write /dev/stune/foreground/schedtune.prefer_idle 0
     write /dev/stune/top-app/schedtune.prefer_idle 0
     write /dev/stune/rt/schedtune.prefer_idle 0
-    write /dev/stune/top-app/schedtune.boost 1
     write /proc/sys/kernel/sched_migration_cost_ns 200000
 
     # restore perf. parameters
@@ -1020,6 +961,21 @@ on property:sys.boot_completed=1
     write /sys/devices/system/cpu/cpufreq/policy6/scaling_governor "schedutil"
     # Stop bootprof
     write /proc/bootprof "0"
+
+#M19A HONGMI-163202 for M19A  wifi sar by wangyaqing at 2023/1/20 start
+#WiFi
+on property:vendor.sysctl.tx=3
+    exec - root -- /vendor/bin/iwpriv wlan0 driver "SET_PWR_CTRL MySar 3"
+#WiFi
+on property:vendor.sysctl.tx=2
+    exec - root -- /vendor/bin/iwpriv wlan0 driver "SET_PWR_CTRL MySar 2"
+#WiFi
+on property:vendor.sysctl.tx=1
+    exec - root -- /vendor/bin/iwpriv wlan0 driver "SET_PWR_CTRL MySar 1"
+#WiFi
+on property:vendor.sysctl.tx=0
+    exec - root -- /vendor/bin/iwpriv wlan0 driver "SET_PWR_CTRL MySar 0"
+#M19A HONGMI-163202 for M19A  wifi sar by wangyaqing at 2023/1/20 end
 
 #service dpfd /vendor/bin/dpfd
 #	user root
@@ -1073,21 +1029,6 @@ on property:persist.vendor.mediatek.fg.log.enable=1
     write /sys/bus/platform/devices/battery/FG_daemon_log_level 7
     write /proc/sys/kernel/printk 8
 
-# C3T code for HQ-218751 by gaopeng at 2022/08/23 start
-service displayfeature /system/bin/displayfeature
-     class late_start
-     user root
-     group root
-
-on property:init.svc.surfaceflinger=stopped
-     stop displayfeature
-
-on property:init.svc.surfaceflinger=running
-     start displayfeature
-
-on property:init.svc.surfaceflinger=restarting
-     stop displayfeature
-# C3T code for HQ-218751 by gaopeng at 2022/08/23 end
 
 # add meta_tst for ATM
 service meta_tst /vendor/bin/meta_tst
@@ -1111,17 +1052,6 @@ service factory_no_image /vendor/bin/factory
 on property:sys.boot_completed=1 && property:ro.boot.atm=enable
     start meta_tst
 
-#C3T HQ-219066 add charge looger function by zhaohan at 2022/09/08 start
-service charge_logger /vendor/bin/charge_logger
-    class main
-    user system
-    group system
-    disabled
-    oneshot
-on property:sys.boot_completed=1
-    start charge_logger
-#C3T HQ-219066 add charge looger function by zhaohan at 2022/09/08 end
-
 # reset mdmode when modem crash happens in ATM
 on property:vendor.mtk.md1.status=reset
     setprop persist.vendor.atm.mdmode normal
@@ -1141,38 +1071,14 @@ service osi /system/bin/osi
     oneshot
     #seclabel u:r:osi:s0
 
-# C3T code for HQ-223815 by qianxiaoming at 2022.7.29
-service initprop_bin /system/vendor/bin/initprop_bin
-    class main
-    user root
-    oneshot
-    disabled
+on charger
+    wait /sys/class/power_supply/usb/type
+    start mi_thermald
 
-on property:vendor.service.nvram_init=Ready
-    start initprop_bin
+on property:sys.boot_completed=1 
+    wait /sys/class/power_supply/usb/type
+    start mi_thermald
 
-on property:persist.odm.ril.oem.sno=*
-    setprop ro.ril.oem.sno ${persist.odm.ril.oem.sno}
-
-on property:persist.odm.ril.oem.psno=*
-    setprop ro.ril.oem.psno ${persist.odm.ril.oem.psno}
-
-on property:persist.odm.ril.oem.wifimac=*
-    setprop ro.ril.oem.wifimac ${persist.odm.ril.oem.wifimac}
-
-on property:persist.odm.ril.oem.btmac=*
-    setprop ro.ril.oem.btmac ${persist.odm.ril.oem.btmac}
-
-on property:persist.odm.ril.factory_id=*
-    setprop ro.ril.factory_id ${persist.odm.ril.factory_id}
-
-on property:persist.odm.ril.oem.imei1=*
-    setprop ro.ril.oem.imei1 ${persist.odm.ril.oem.imei1}
-
-on property:persist.odm.ril.oem.imei2=*
-    setprop ro.ril.oem.imei2 ${persist.odm.ril.oem.imei2}
-
-#C3T code for HQ-223913 by liwen at 20220801
 service mi_thermald /system/vendor/bin/mi_thermald
     class main
     user root
@@ -1190,127 +1096,3 @@ service vendor.charger /system/bin/charger
     file /sys/fs/pstore/console-ramoops r
     file /proc/last_kmsg r
 
-#C3T code for HQ-224094 by hongwei at 2022/08/19
-service screenmode0 /system/vendor/bin/factory_bin s 0
-    class main
-    user root
-    oneshot
-    disabled
-
-service screenmode1 /system/vendor/bin/factory_bin s 1
-    class main
-    user root
-    oneshot
-    disabled
-
-service screenmode3 /system/vendor/bin/factory_bin s 3
-    class main
-    user root
-    oneshot
-    disabled
-
-service openpocket /system/vendor/bin/factory_bin p 1
-    class main
-    user root
-    oneshot
-    disabled
-
-service closepocket /system/vendor/bin/factory_bin p 0
-    class main
-    user root
-    oneshot
-    disabled
-
-service enablefreqhop /system/vendor/bin/factory_bin c 1
-    class main
-    user root
-    oneshot
-    disabled
-
-service disablefreqhop /system/vendor/bin/factory_bin c 0
-    class main
-    user root
-    oneshot
-    disabled
-
-service enableswtp /system/vendor/bin/factory_bin z 1
-    class main
-    user root
-    oneshot
-    disabled
-
-service disableswtp /system/vendor/bin/factory_bin z 0
-    class main
-    user root
-    oneshot
-    disabled
-
-service gaogpio /system/vendor/bin/factory_bin y 1
-    class main
-    user root
-    oneshot
-    disabled
-
-service digpio /system/vendor/bin/factory_bin y 0
-    class main
-    user root
-    oneshot
-    disabled
-
-service maxcurrentNocall /system/vendor/bin/factory_bin m 0
-    class main
-    user root
-    oneshot
-    disabled
-
-service maxcurrentIncall /system/vendor/bin/factory_bin m 1
-    class main
-    user root
-    oneshot
-    disabled
-
-# C3T code for HQ-223442 by hongwei at 2022/09/01 start
-service headset_in_screenmode /system/vendor/bin/factory_bin q 1
-    class main
-    user root
-    oneshot
-    disabled
-
-service headset_out_screenmode /system/vendor/bin/factory_bin q 0
-    class main
-    user root
-    oneshot
-    disabled
-# C3T code for HQ-223442 by hongwei at 2022/09/01 end
-
-#C3T-T code for HQ-272420 by tanrong at 20230109 start
-service mishow_start /vendor/bin/sh /vendor/bin/mishow.sh 1
-       class main
-       user system
-       group system
-       disabled
-       oneshot
-       seclabel u:r:mishow:s0
-service mishow_stop /vendor/bin/sh /vendor/bin/mishow.sh 0
-       class main
-       user system
-       group system
-       disabled
-       oneshot
-       seclabel u:r:mishow:s0
-on property:vendor.charge.mishow.ctl=true
-       start mishow_start
-on property:vendor.charge.mishow.ctl=false
-       start mishow_stop
-on property:persist.vendor.battery.mishow=true
-       setprop vendor.charge.mishow.ctl true
-#C3T-T code for HQ-272420 by tanrong at 20230109 end
-
-# C3T-T code for HQ-268776 by tanrong at 2023/1/12 begin
-# headset mode
-on property:persist.audio.headset.plug.status=on
-   start headset_in_screenmode
-
-on property:persist.audio.headset.plug.status=off
-   start headset_out_screenmode
-# C3T-T code for HQ-268776 by tanrong at 2023/1/12 end

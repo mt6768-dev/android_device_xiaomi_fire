@@ -8,6 +8,8 @@ on post-fs-data
     chmod 0660 /dev/gsensor
     chmod 0660 /dev/als_ps
     chmod 0660 /dev/gyroscope
+    chmod 0660 /dev/sar
+    chmod 0660 /dev/saralgo
     chmod 0660 /dev/aal_als
     chmod 0660 /dev/humidity
     chmod 0660 /dev/barometer
@@ -32,6 +34,8 @@ on post-fs-data
     chown radio system /dev/gsensor
     chown radio system /dev/als_ps
     chown radio system /dev/gyroscope
+    chown radio system /dev/sar
+    chown radio system /dev/saralgo
     chown system system /dev/aal_als
     chown system system /dev/humidity
     chown system system /dev/barometer
@@ -70,12 +74,14 @@ on post-fs-data
     chmod 0660 /sys/class/sensor/m_mag_misc/magflush
     chmod 0660 /sys/class/sensor/m_mag_misc/magcali
     chmod 0660 /sys/class/sensor/m_mag_misc/maglibinfo
+    chmod 0660 /sys/class/sensor/m_mag_misc/magnfcinfo
     chown system system /sys/class/sensor/m_mag_misc/magactive
     chown system system /sys/class/sensor/m_mag_misc/magdelay
     chown system system /sys/class/sensor/m_mag_misc/magbatch
     chown system system /sys/class/sensor/m_mag_misc/magflush
     chown system system /sys/class/sensor/m_mag_misc/magcali
     chown system system /sys/class/sensor/m_mag_misc/maglibinfo
+    chown system system /sys/class/sensor/m_mag_misc/magnfcinfo
 
     chmod 0660 /sys/class/sensor/m_gyro_misc/gyroenablenodata
     chmod 0660 /sys/class/sensor/m_gyro_misc/gyroactive
@@ -149,12 +155,18 @@ on post-fs-data
     chmod 0660 /sys/class/sensor/m_situ_misc/situdelay
     chmod 0660 /sys/class/sensor/m_situ_misc/situbatch
     chmod 0660 /sys/class/sensor/m_situ_misc/situflush
+    chmod 0660 /sys/class/sensor/m_situ_misc/situcali
     chmod 0660 /sys/class/sensor/m_situ_misc/sarstep
+    chmod 0660 /sys/class/sensor/m_situ_misc/regwrite
+    chmod 0660 /sys/class/sensor/m_situ_misc/regread
     chown system system /sys/class/sensor/m_situ_misc/situactive
     chown system system /sys/class/sensor/m_situ_misc/situdelay
     chown system system /sys/class/sensor/m_situ_misc/situbatch
     chown system system /sys/class/sensor/m_situ_misc/situflush
+    chown system system /sys/class/sensor/m_situ_misc/situcali
     chown system system /sys/class/sensor/m_situ_misc/sarstep
+    chown system system /sys/class/sensor/m_situ_misc/regwrite
+    chown system system /sys/class/sensor/m_situ_misc/regread
 
     chmod 0660 /sys/class/sensor/m_act_misc/actactive
     chmod 0660 /sys/class/sensor/m_act_misc/actdelay

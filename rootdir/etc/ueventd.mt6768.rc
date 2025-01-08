@@ -67,12 +67,6 @@
 /dev/mobicore-user        0666   system     system
 /dev/t-base-tui           0666   system     system
 
-#silead fingerprint
-/dev/spidev1.0            0660   system     system
-/dev/spidev0.0            0660   system     system
-/dev/silead_fp            0660   system     system
-/dev/silead_stub          0660   system     system
-
 # add the read write right of ttyUSB*
 /dev/bus/usb/*     	  0660   root       usb
 /dev/ttyUSB0              0660   radio      radio
