@@ -686,6 +686,20 @@ vendor/thh/ta/e5140b3376fa4c63ab18062caab2fb5c.ta
 vendor/thh/ta/e97c270ea5c44c58bcd3384a2fa2539e.ta
 vendor/thh/ta/isee_model.json
 
+# NFC
+vendor/bin/hw/android.hardware.nfc@1.2-service
+vendor/etc/init/android.hardware.nfc@1.2-service.rc
+vendor/etc/init/init.vnd_fire.nfc.rc
+vendor/lib64/ese_client.so
+vendor/lib64/ese_spi_nxp.so
+vendor/lib64/hal_libnfc.so
+vendor/lib64/libpn557_fw.so
+vendor/lib64/nfc_nci_nxp.so
+vendor/lib64/vendor.nxp.eventprocessor@1.0.so
+vendor/lib64/vendor.nxp.nxpnfc@2.0.so;MODULE_SUFFIX=_vendor
+vendor/lib64/vendor.nxp.nxpnfclegacy@1.0.so
+vendor/libnfc-nxp_RF.conf
+
 # NVRAM
 vendor/bin/hw/vendor.mediatek.hardware.nvram@1.1-service
 vendor/bin/nvram_daemon
