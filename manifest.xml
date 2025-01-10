@@ -100,11 +100,6 @@
         <fqname>@1.0::IFingerprintSensorTest/default</fqname>
     </hal>
     <hal format="hidl">
-        <name>vendor.fpsensor.hardware.fpsensorhidlsvc</name>
-        <transport>hwbinder</transport>
-        <fqname>@2.0::IFpsensorHidlSvc/default</fqname>
-    </hal>
-    <hal format="hidl">
         <name>vendor.mediatek.hardware.aee</name>
         <transport>hwbinder</transport>
         <fqname>@1.1::IAee/AEE</fqname>

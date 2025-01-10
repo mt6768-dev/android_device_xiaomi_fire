@@ -1,12 +1,9 @@
 # Fingerprint
-genfscon sysfs /devices/platform/11012000.spi2/spi_master/spi2/spi2.0/authen_fd u:object_r:vendor_sysfs_fingerprint:s0
-genfscon sysfs /devices/platform/11012000.spi2/spi_master/spi2/spi2.0/authen_fd/performance u:object_r:vendor_sysfs_fingerprint:s0
-genfscon sysfs /devices/platform/11012000.spi2/spi_master/spi2/spi2.0/clk_enable u:object_r:vendor_sysfs_fingerprint:s0
-genfscon sysfs /devices/platform/11012000.spi2/spi_master/spi2/spi2.0/irq u:object_r:vendor_sysfs_fingerprint:s0
-genfscon sysfs /devices/platform/11012000.spi2/spi_master/spi2/spi2.0/modalias u:object_r:vendor_sysfs_fingerprint:s0
-genfscon sysfs /devices/platform/11012000.spi2/spi_master/spi2/spi2.0/wakeup_enable u:object_r:vendor_sysfs_fingerprint:s0
-genfscon sysfs /devices/platform/11012000.spi2/spi_master/spi2/statistics/modalias u:object_r:vendor_sysfs_fingerprint:s0
-genfscon sysfs /devices/platform/11012000.spi2/spi_master/spi2/subsystem/modalias u:object_r:vendor_sysfs_fingerprint:s0
+genfscon sysfs /devices/platform/1100a000.spi0/spi_master/spi0/spi0.0/clk_enable u:object_r:vendor_sysfs_fingerprint:s0
+genfscon sysfs /devices/platform/1100a000.spi0/spi_master/spi0/spi0.0/irq u:object_r:vendor_sysfs_fingerprint:s0
+genfscon sysfs /devices/platform/1100a000.spi0/spi_master/spi0/spi0.0/hw_reset u:object_r:vendor_sysfs_fingerprint:s0
+genfscon sysfs /devices/platform/1100a000.spi0/spi_master/spi0/spi0.0/wakeup_enable u:object_r:vendor_sysfs_fingerprint:s0
+genfscon sysfs /devices/platform/1100a000.spi0/spi_master/spi0/spi0.0/fingerdown_wait u:object_r:vendor_sysfs_fingerprint:s0
 
 # Extcon
 genfscon sysfs /devices/platform/extcon_usb/extcon/extcon0/cable.0/name u:object_r:sysfs_extcon:s0
