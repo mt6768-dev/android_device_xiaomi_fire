@@ -64,6 +64,9 @@ ro.vendor.connsys.dedicated.log.port=bt,wifi,gps,mcu
 ro.vendor.connsys.dedicated.log=1
 vendor.connsys.driver.ready=no
 
+# ConsumerIr
+ro.hardware.consumerir=common
+
 # Display
 debug.sf.disable_backpressure=1
 debug.sf.early.app.duration=20000000

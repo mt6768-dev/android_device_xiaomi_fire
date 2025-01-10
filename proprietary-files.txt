@@ -426,6 +426,9 @@ vendor/firmware/soc1_0_ram_mcu_1a_1_hdr.bin
 vendor/firmware/soc1_0_ram_wifi_1a_1_hdr.bin
 vendor/firmware/txpowerctrl.cfg
 
+# ConsumerIr
+vendor/lib64/hw/consumerir.common.so
+
 # Display
 vendor/bin/hw/android.hardware.graphics.allocator@4.0-service-mediatek
 vendor/bin/hw/vendor.mediatek.hardware.pq@2.2-service
