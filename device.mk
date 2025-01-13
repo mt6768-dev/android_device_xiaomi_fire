@@ -159,7 +159,6 @@ PRODUCT_COPY_FILES += \
 
 # Overlays
 PRODUCT_PACKAGES += \
-    CarrierConfigOverlayFire \
     FrameworksResOverlayFire \
     SettingsOverlayFire \
     SystemUIOverlayFire \
