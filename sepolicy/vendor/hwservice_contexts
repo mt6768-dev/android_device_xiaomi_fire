@@ -10,3 +10,4 @@ com.fingerprints.extension::IFingerprintOptical                                 
 
 # NFC
 vendor.nxp.nxpnfc::INxpNfc                                                           u:object_r:hal_nfc_hwservice:s0
+vendor.nxp.nxpese::INxpEse                                                           u:object_r:hal_nfc_hwservice:s0
