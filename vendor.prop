@@ -124,6 +124,8 @@ ro.vendor.smvr.p2batch.vga=8
 
 # DRM
 ro.netflix.bsp_rev=MTK6768-19055-1
+ro.vendor.mtk_tee_gp_support=1
+ro.vendor.mtk_widevine_drm_l1_support=1
 
 # Fingerprint
 ro.hardware.fp.sideCap=true
