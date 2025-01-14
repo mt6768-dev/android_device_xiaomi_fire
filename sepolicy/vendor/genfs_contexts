@@ -1,3 +1,7 @@
+# Audio
+genfscon sysfs /devices/platform/1100f000.i2c3/i2c-3/3-0058/uevent u:object_r:sysfs_chip_vendor:s0
+genfscon sysfs /devices/platform/1100f000.i2c3/i2c-3/3-0058/vmax u:object_r:sysfs_chip_vendor:s0
+
 # Fingerprint
 genfscon sysfs /devices/platform/1100a000.spi0/spi_master/spi0/spi0.0/clk_enable u:object_r:vendor_sysfs_fingerprint:s0
 genfscon sysfs /devices/platform/1100a000.spi0/spi_master/spi0/spi0.0/irq u:object_r:vendor_sysfs_fingerprint:s0
