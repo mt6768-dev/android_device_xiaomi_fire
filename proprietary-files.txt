@@ -8,6 +8,7 @@ vendor/lib64/libaedv.so
 vendor/etc/smartpa_param/AW_DSP.bin
 vendor/etc/smartpa_param/AW_VMAX_LEFT.bin
 vendor/etc/smartpa_param/AW_VMAX_RIGHT.bin
+vendor/firmware/aw87xxx_acf.bin
 vendor/firmware/sipa.bin
 vendor/lib/hw/audio.primary.mt6768.so
 vendor/lib/hw/audio.r_submix.mt6768.so
