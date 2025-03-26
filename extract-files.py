@@ -67,7 +67,9 @@ blob_fixups: blob_fixups_user_type = {
     'vendor/lib64/libmnl.so' : blob_fixup()
         .add_needed('libcutils.so'),
     ('vendor/lib/libnvram.so', 'vendor/lib64/libnvram.so', 'vendor/lib64/libsysenv.so') : blob_fixup()
-        .add_needed('libbase_shim.so')
+        .add_needed('libbase_shim.so'),
+    'vendor/lib64/hw/hwcomposer.mt6768.so' : blob_fixup()
+        .add_needed('libprocessgroup_shim.so')
 }  # fmt: skip
 
 module = ExtractUtilsModule(
