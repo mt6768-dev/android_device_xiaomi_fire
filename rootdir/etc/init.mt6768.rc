@@ -98,6 +98,10 @@ on charger
     # Stop bootprof
     write /proc/bootprof "0"
 
+    # Display
+    chmod 0660 /dev/graphics/fb0
+    chown system graphics /dev/graphics/fb0
+
 on property:sys.boot_completed=1
     write /proc/pl_lk "0"
 
