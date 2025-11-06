@@ -65,6 +65,8 @@ blob_fixups: blob_fixups_user_type = {
         .add_needed('liblog.so'),
     'vendor/lib64/libmnl.so' : blob_fixup()
         .add_needed('libcutils.so'),
+    'vendor/lib/hw/audio.primary.mt6768.so' : blob_fixup()
+        .add_needed('libstagefright_foundation-v33.so'),
     ('vendor/lib/libnvram.so', 'vendor/lib64/libnvram.so', 'vendor/lib64/libsysenv.so') : blob_fixup()
         .add_needed('libbase_shim.so'),
     'vendor/lib64/hw/hwcomposer.mt6768.so' : blob_fixup()
