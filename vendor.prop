@@ -9,6 +9,14 @@ ro.vendor.audio.us.proximity=true
 ro.vendor.audio.us.proximity_waitfornegative_feature=true
 vendor.audio.spkcal.copy.inhal=true
 vendor.audiohal.telephonytx.type=2
+persist.vendor.audiohal.aurisys.pcm_dump_on=0
+persist.vendor.audiohal.p2w_dump_on=0
+persist.vendor.audiohal.pcm_mixer_dump_on=0
+vendor.usbsph.dl.pcm.dump=0
+vendor.usbsph.ul.pcm.dump=0
+vendor.usbsph.srcaws.pcm.dump=0
+vendor.streamout.pcm.dump=0
+vendor.streamin.pcm.dump=0
 
 # Bluetooth
 bluetooth.device.class_of_device=90,2,12
