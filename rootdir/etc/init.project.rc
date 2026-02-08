@@ -119,3 +119,23 @@ on property:sys.boot_completed=1
     write /sys/kernel/tracing/instances/mmstat/buffer_size_kb 16
     write /sys/kernel/tracing/instances/mmstat/events/mmstat/enable 1
     write /sys/kernel/tracing/instances/mmstat/tracing_on 1
+
+service vendor.nfc_hal_service /vendor/bin/hw/android.hardware.nfc@1.2-service
+    class hal
+    user nfc
+    group nfc
+    disabled
+    override
+
+on property:ro.boot.board_id=S98029AA1
+    start vendor.nfc_hal_service
+    setprop ro.vendor.se.type HCE,UICC
+    setprop ro.vendor.nfc.repair 1
+
+on property:ro.boot.board_id=S98029BA1
+    start vendor.nfc_hal_service
+    setprop ro.vendor.se.type HCE,UICC
+    setprop ro.vendor.nfc.repair 1
+
+on property:ro.boot.board_id=TBD
+    start vendor.nfc_hal_service
