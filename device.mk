@@ -122,6 +122,8 @@ PRODUCT_PACKAGES += \
     android.hardware.health@2.1-service
 
 # IMS
+$(call inherit-product, hardware/lineage/compat/frameworks/compat.mk)
+
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/permissions/mediatek-common.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/mediatek-common.xml \
     $(LOCAL_PATH)/configs/permissions/mediatek-framework.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/mediatek-framework.xml \
