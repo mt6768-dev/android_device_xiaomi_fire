@@ -230,6 +230,7 @@ include hardware/mediatek/configs/properties/vendor_logtag.mk
 
 # Rootdir
 PRODUCT_PACKAGES += \
+    chipinfo \
     fstab.mt6768 \
     fstab.mt6768.ramdisk \
     init.connectivity.rc \
